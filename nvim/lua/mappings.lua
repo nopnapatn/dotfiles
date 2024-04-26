@@ -1,0 +1,40 @@
+require "nvchad.mappings"
+
+-- add yours here
+
+local map = vim.keymap.set
+
+map("i", "jk", "<ESC>")
+map("n", ";", ":", { desc = "CMD enter command mode" })
+
+-- increment/ decrement
+map("n", "+", "<C-a>")
+map("n", "-", "<C-x>")
+
+-- select all
+map("n", "<C-a>", "gg<S-v>G")
+
+-- new tabedit
+map("n", "te", ":tabedit")
+map("n", "tn", ":tabnext<Return>")
+map("n", "tb", ":tabprev<Return>")
+
+-- split window
+map("n", "ss", ":split<Return>")
+map("n", "sv", ":vsplit<Return>")
+
+map("n", "sx", ":q<Return>")
+
+-- move window
+map("n", "sh", "<C-w>h")
+map("n", "sk", "<C-w>k")
+map("n", "sj", "<C-w>j")
+map("n", "sl", "<C-w>l")
+
+-- resize window
+map("n", "<C-w><left>", "<C-w><")
+map("n", "<C-w><right>", "<C-w>>")
+map("n", "<C-w><up>", "<C-w>+")
+map("n", "<C-w><down>", "<C-w>-")
+
+-- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
