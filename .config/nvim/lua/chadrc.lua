@@ -8,6 +8,9 @@ M.ui = {
 	theme = "ayu_dark",
   theme_toggle = {"ayu_dark", "ayu_light"},
   transparency = true,
+  nvdash = {
+    load_on_startup = true,
+  }
 
 	-- hl_override = {
 	-- 	Comment = { italic = true },

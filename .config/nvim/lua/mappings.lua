@@ -23,8 +23,6 @@ map("n", "tb", ":tabprev<Return>")
 map("n", "ss", ":split<Return>")
 map("n", "sv", ":vsplit<Return>")
 
-map("n", "sx", ":q<Return>")
-
 -- move window
 map("n", "sh", "<C-w>h")
 map("n", "sk", "<C-w>k")
@@ -36,5 +34,10 @@ map("n", "<C-w><left>", "<C-w><")
 map("n", "<C-w><right>", "<C-w>>")
 map("n", "<C-w><up>", "<C-w>+")
 map("n", "<C-w><down>", "<C-w>-")
+
+-- close buffer
+map("n", "sx", function()
+  require("nvchad.tabufline").close_buffer()
+end, { desc = "buffer close" })
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
