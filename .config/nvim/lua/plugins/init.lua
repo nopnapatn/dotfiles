@@ -12,7 +12,7 @@ return {
   },
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
+    event = 'BufWritePre', -- uncomment for format on save
     config = function()
       require "configs.conform"
     end,
@@ -33,6 +33,31 @@ return {
     config = function()
       require("nvim-ts-autotag").setup()
     end
+  },
+  {
+    -- nvim-colorizer
+    "norcalli/nvim-colorizer.lua",
+    ft = {
+      "html",
+      "css",
+      "sass",
+      "vim",
+      "typescript",
+      "typescriptreact",
+      "javascript",
+      "javascriptreact",
+    },
+    config = function()
+      require("colorizer").setup()
+    end,
+  },
+  {
+    -- nvim-autopairs
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function()
+      require("nvim-autopairs").setup()
+    end,
   },
 
   -- These are some examples, uncomment them if you want to see them work!
