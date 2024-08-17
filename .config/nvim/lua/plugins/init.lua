@@ -1,5 +1,16 @@
 return {
   {
+    "github/copilot.vim",
+    lazy = false,
+    config = function()  -- Mapping tab is already used by NvChad
+      vim.g.copilot_no_tab_map = true;
+      vim.g.copilot_assume_mapped = true;
+      vim.g.copilot_tab_fallback = "";
+      -- The mapping is set to other key, see custom/lua/mappings
+      -- or run <leader>ch to see copilot mapping section
+    end
+  },
+  {
     "stevearc/conform.nvim",
     -- event = 'BufWritePre', -- uncomment for format on save
     config = function()
@@ -39,7 +50,7 @@ return {
   		ensure_installed = {
   			"lua-language-server", "stylua",
   			"html-lsp", "css-lsp" , "prettier",
-        "eslint-lsp", "prettierd",
+        "eslint-lsp", "prettierd", "gopls",
         "typescript-language-server",
         "tailwindcss-language-server",
   		},

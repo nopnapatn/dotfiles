@@ -29,6 +29,9 @@ map("n", "sk", "<C-w>k")
 map("n", "sj", "<C-w>j")
 map("n", "sl", "<C-w>l")
 
+-- quit window
+map("n", "sx", ":q<Return>")
+
 -- resize window
 map("n", "<C-w><left>", "<C-w><")
 map("n", "<C-w><right>", "<C-w>>")
@@ -36,8 +39,14 @@ map("n", "<C-w><up>", "<C-w>+")
 map("n", "<C-w><down>", "<C-w>-")
 
 -- close buffer
-map("n", "sx", function()
+map("n", "tx", function()
   require("nvchad.tabufline").close_buffer()
 end, { desc = "buffer close" })
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+
+-- copilot mappings
+map("i", "<Tab>", function()
+  vim.fn.feedkeys(vim.fn['copilot#Accept'](), '')
+end, { replace_keycodes = true, nowait = true, silent = true, expr = true, noremap = true })
+
