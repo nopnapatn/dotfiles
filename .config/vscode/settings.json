@@ -3,10 +3,9 @@
   "workbench.editor.labelFormat": "short",
   "workbench.layoutControl.enabled": true,
   "workbench.productIconTheme": "el-vsc-v1-icons",
-  "workbench.iconTheme": "material-icon-theme",
-
-  "terminal.integrated.env.osx": {},
-
+  "workbench.preferredLightColorTheme": "Solarized Light",
+  "workbench.preferredDarkColorTheme": "paddy-dark",
+  "workbench.iconTheme": null,
   "editor.fontFamily": "MesloLGS NF",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorSurroundingLines": 5,
@@ -21,19 +20,14 @@
     "source.addMissingImports": "explicit",
     "source.organizeImports": "explicit"
   },
-
   "explorer.compactFolders": false,
-  
   "symbols.hidesExplorerArrows": false,
-
   "extensions.autoUpdate": "onlyEnabledExtensions",
   "extensions.ignoreRecommendations": false,
-
   "prettier.semi": false,
   "prettier.singleAttributePerLine": true,
   "prettier.singleQuote": false,
-  "prettier.trailingComma": "all",
-
+  "prettier.trailingComma": "none",
   "vim.foldfix": true,
   "vim.useSystemClipboard": true,
   "vim.highlightedyank.color": "rgba(230, 97, 89, 0.7)",
@@ -124,9 +118,7 @@
       "when": ["editorTextFocus"]
     }
   ],
-
   "console-ninja.featureSet": "Community",
-
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -142,7 +134,11 @@
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "css.lint.unknownAtRules": "ignore",
   "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescript]": {
@@ -172,15 +168,20 @@
     }
   },
   "go.toolsManagement.autoUpdate": true,
-  
-  "colorize.languages": [
-    "css",
-    "sass",
-    "scss",
-    "postcss",
-    "javascript",
-    "typescript"
-  ],
-
-  "git.openRepositoryInParentFolders": "never"
+  "[tailwindcss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "github.copilot.editor.enableAutoCompletions": true,
+  "terminal.integrated.env.osx": {},
+  "sonarlint.rules": {
+    "typescript:S6638": {
+      "level": "on"
+    },
+    "typescript:S6851": {
+      "level": "on"
+    }
+  },
+  "makefile.configureOnOpen": true,
+  "window.autoDetectColorScheme": true,
+  "solidity.telemetry": true
 }
