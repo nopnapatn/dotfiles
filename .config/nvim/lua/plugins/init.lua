@@ -1,74 +1,19 @@
 return {
   {
-    "github/copilot.vim",
-    lazy = false,
-    config = function()  -- Mapping tab is already used by NvChad
-      vim.g.copilot_no_tab_map = true;
-      vim.g.copilot_assume_mapped = true;
-      vim.g.copilot_tab_fallback = "";
-      -- The mapping is set to other key, see custom/lua/mappings
-      -- or run <leader>ch to see copilot mapping section
-    end
-  },
-  {
     "stevearc/conform.nvim",
-    event = 'BufWritePre', -- uncomment for format on save
-    config = function()
-      require "configs.conform"
-    end,
+    -- event = 'BufWritePre', -- uncomment for format on save
+    opts = require "configs.conform",
   },
-  {
-    -- telescope, search file
-    require("plugins.telescope")
-  },
-  {
-    -- autotag
-    "windwp/nvim-ts-autotag",
-    ft = {
-      "javascript",
-      "javascriptreact",
-      "typescript",
-      "typescriptreact",
-    },
-    config = function()
-      require("nvim-ts-autotag").setup()
-    end
-  },
-  {
-    -- nvim-colorizer
-    "norcalli/nvim-colorizer.lua",
-    ft = {
-      "html",
-      "css",
-      "sass",
-      "vim",
-      "typescript",
-      "typescriptreact",
-      "javascript",
-      "javascriptreact",
-    },
-    config = function()
-      require("colorizer").setup()
-    end,
-  },
-  {
-    -- nvim-autopairs
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    config = function()
-      require("nvim-autopairs").setup()
-    end,
-  },
+
+  { require("plugins.telescope") },
 
   -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require("nvchad.configs.lspconfig").defaults()
       require "configs.lspconfig"
     end,
   },
-
   {
   	"williamboman/mason.nvim",
   	opts = {
@@ -94,4 +39,45 @@ return {
   		},
   	},
   },
+  {
+    -- autotag
+    "windwp/nvim-ts-autotag",
+    ft = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    },
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end
+  },
+  {
+    -- nvim-autopairs
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function()
+      require("nvim-autopairs").setup()
+    end,
+  },
+  {
+    -- nvim-colorizer
+    "norcalli/nvim-colorizer.lua",
+    ft = {
+      "html",
+      "css",
+      "sass",
+      "vim",
+      "typescript",
+      "typescriptreact",
+      "javascript",
+      "javascriptreact",
+    },
+    config = function()
+      require("colorizer").setup()
+    end,
+  },
+
+  -- test new blink
+  { import = "nvchad.blink.lazyspec" },
 }

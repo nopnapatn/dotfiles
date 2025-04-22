@@ -4,8 +4,8 @@ require "nvchad.mappings"
 
 local map = vim.keymap.set
 
-map("i", "jk", "<ESC>")
 map("n", ";", ":", { desc = "CMD enter command mode" })
+map("i", "jk", "<ESC>")
 
 -- increment/ decrement
 map("n", "+", "<C-a>")
@@ -42,11 +42,3 @@ map("n", "<C-w><down>", "<C-w>-")
 map("n", "tx", function()
   require("nvchad.tabufline").close_buffer()
 end, { desc = "buffer close" })
-
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
-
--- GitHub Copilot mappings
-map("i", "<Tab>", function()
-  vim.fn.feedkeys(vim.fn["copilot#Accept"](), "")
-end, { replace_keycodes = true, nowait = true, silent = true, expr = true, noremap = true })
-
