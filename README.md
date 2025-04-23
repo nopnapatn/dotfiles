@@ -10,8 +10,9 @@ This dotfiles repository contains configuration for:
 - **Tmux** - Terminal multiplexer with sensible keybindings
 - **Btop** - Resource monitor with beautiful interface
 - **Yabai** - Tiling window manager for MacOS
-- **Skhd** - Simple hotkey daemon for macOS
+- **Skhd** - Simple hotkey daemon for MacOS
 - **Zsh** - Shell configuration with useful aliases and settings
+- **Ghostty** - Terminal UI for GitHub issues
 
 ## Prerequisites
 
@@ -77,16 +78,6 @@ The installation script performs the following actions:
 | `Prefix + r`       | Reload tmux config        |
 | `Alt + Arrow keys` | Navigate panes            |
 
-## Customization
-
-Feel free to fork this repository and customize it to your needs:
-
-- `.config/nvim/` - Neovim configuration
-- `.config/tmux/` - Tmux configuration
-- `.config/btop/` - Btop configuration
-- `.config/skhd/` - Skhd configuration
-- `.config/yabai/` - Yabai configuration
-
 ## Updating
 
 To update your dotfiles:
@@ -98,3 +89,7 @@ git pull
 ```
 
 The installation script is idempotent, so running it again will only update what's necessary.
+
+## Conclusion
+
+Feel free to customize the dotfiles to suit your needs. If you have any questions or suggestions, please open an issue or pull request on GitHub.

@@ -152,7 +152,7 @@ create_symlinks() {
     echo "Linking .config directories..."
     
     # Array of directories to link
-    CONFIG_DIRS=("nvim" "tmux" "btop" "skhd" "yabai")
+    CONFIG_DIRS=("btop" "ghostty" "nvim" "skhd" "tmux" "yabai")
     
     for dir in "${CONFIG_DIRS[@]}"; do
         source_dir="$DOTFILES_DIR/.config/$dir"
