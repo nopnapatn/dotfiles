@@ -1,10 +1,100 @@
-## My Dev Environment Files
+# Dotfiles
 
-**IMPOTANT:** If you're not sure, don't mess with my settings. Use them cautiously and at your own risk, understanding the potential impact.
+My personal dotfiles for MacOS setup with a simple installation script that makes setup a breeze.
 
-### How to Install: [Blog | My Enviromment Files](https://nopnapatn.dev/)
+## What's Included
 
-<details>
-    <summary><b>More about... (Click to expand)</b></summary>
-    soon..
-</details>
+This dotfiles repository contains configuration for:
+
+- **Neovim** - Text editor with modern plugins and LSP support
+- **Tmux** - Terminal multiplexer with sensible keybindings
+- **Btop** - Resource monitor with beautiful interface
+- **Yabai** - Tiling window manager for MacOS
+- **Skhd** - Simple hotkey daemon for macOS
+- **Zsh** - Shell configuration with useful aliases and settings
+
+## Prerequisites
+
+- MacOS (tested on Monterey and later)
+- Git
+
+## Installation
+
+You can set up these dotfiles with a single command:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/nopnapatn/dotfiles/main/install.sh)"
+```
+
+Or manually:
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/nopnapatn/dotfiles.git ~/.dotfiles
+   ```
+
+2. Run the installation script:
+   ```bash
+   cd ~/.dotfiles
+   chmod +x install.sh
+   ./install.sh
+   ```
+
+## What the Installation Script Does
+
+The installation script performs the following actions:
+
+1. Installs Homebrew (if not already installed)
+2. Installs necessary packages via Homebrew
+3. Creates required directories in `~/.config/`
+4. Creates symbolic links from the dotfiles to their appropriate locations
+5. Sets up and starts services (yabai and skhd)
+
+## Key Bindings
+
+### Yabai + Skhd
+
+| Keybinding              | Action                          |
+| ----------------------- | ------------------------------- |
+| `alt - return`          | Open terminal                   |
+| `alt - h/j/k/l`         | Focus window left/down/up/right |
+| `shift + alt - h/j/k/l` | Move window left/down/up/right  |
+| `shift + alt - 1-9`     | Move window to workspace 1-9    |
+| `ctrl + alt - h/j/k/l`  | Resize window                   |
+| `shift + alt - space`   | Toggle window float             |
+| `alt - f`               | Toggle window fullscreen        |
+| `shift + alt - r`       | Restart yabai                   |
+
+### Tmux
+
+| Keybinding         | Action                    |
+| ------------------ | ------------------------- |
+| `C-Space`          | Prefix key                |
+| `Prefix + \|`      | Split window horizontally |
+| `Prefix + -`       | Split window vertically   |
+| `Prefix + h/j/k/l` | Navigate panes            |
+| `Prefix + r`       | Reload tmux config        |
+| `Alt + Arrow keys` | Navigate panes            |
+
+## Customization
+
+Feel free to fork this repository and customize it to your needs:
+
+- `.config/nvim/` - Neovim configuration
+- `.config/tmux/` - Tmux configuration
+- `.config/btop/` - Btop configuration
+- `.config/skhd/` - Skhd configuration
+- `.config/yabai/` - Yabai configuration
+
+## Updating
+
+To update your dotfiles:
+
+```bash
+cd ~/.dotfiles
+git pull
+./install.sh
+```
+
+The installation script is idempotent, so running it again will only update what's necessary.
