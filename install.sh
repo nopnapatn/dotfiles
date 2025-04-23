@@ -179,7 +179,7 @@ create_symlinks() {
     echo "Linking other dotfiles..."
     
     # Array of files to link from repository root
-    ROOT_FILES=(".zshrc" ".tmux.conf" ".vimrc" ".gitconfig")
+    ROOT_FILES=(".zshrc" ".gitconfig")
     
     for file in "${ROOT_FILES[@]}"; do
         source_file="$DOTFILES_DIR/$file"
