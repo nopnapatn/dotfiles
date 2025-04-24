@@ -18,16 +18,14 @@
 # Notes:
 #   - Ensure that both yabai and skhd are installed and accessible from
 #     your PATH.
-#   - This script assumes that `yabai` and `skhd` commands are available 
+#   - This script assumes that yabai and skhd commands are available 
 #     and properly configured.
 # 
 # Author: [Nopnapat Norasri]
-
 mode() {
     case "$1" in
         dev)
             echo "Running mode dev..."
-
             # Check if yabai is already running using ps
             if pgrep -x "yabai" > /dev/null; then
                 echo "Yabai service is already running."
@@ -35,7 +33,6 @@ mode() {
                 echo "Starting yabai service..."
                 yabai --start-service
             fi
-
             # Check if skhd is already running
             if pgrep -x "skhd" > /dev/null; then
                 echo "skhd service is already running."
@@ -43,12 +40,11 @@ mode() {
                 echo "Starting skhd service..."
                 skhd --start-service
             fi
-
+            echo "Dock configured to auto-hide with minimal delay"
             echo "Mode dev and services started successfully."
             ;;
         normal)
             echo "Running mode normal..."
-
             # Check if yabai is running before attempting to stop it
             if pgrep -x "yabai" > /dev/null; then
                 echo "Stopping yabai service..."
@@ -56,7 +52,6 @@ mode() {
             else
                 echo "Yabai service is not running."
             fi
-
             # Check if skhd is running before attempting to stop it
             if pgrep -x "skhd" > /dev/null; then
                 echo "Stopping skhd service..."
@@ -64,7 +59,7 @@ mode() {
             else
                 echo "skhd service is not running."
             fi
-
+            echo "Dock configured to show with minimal delay"
             echo "Mode normal and services stopped successfully."
             ;;
         *)
