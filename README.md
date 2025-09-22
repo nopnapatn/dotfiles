@@ -12,7 +12,6 @@ This dotfiles repository contains configuration for:
 - **Yabai** - Tiling window manager for MacOS
 - **Skhd** - Simple hotkey daemon for MacOS
 - **Zsh** - Shell configuration with useful aliases and settings
-- **Ghostty** - Terminal UI for GitHub issues
 
 ## Prerequisites
 
