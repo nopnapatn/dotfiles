@@ -135,6 +135,7 @@ install_casks() {
         "regtangle"
         "min"
         "docker"
+        "jordanbaird-ice"
         "telegram"
         "keyboardcleantool"
         "figma"
