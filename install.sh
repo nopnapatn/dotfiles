@@ -106,6 +106,7 @@ install_packages() {
         "pyenv"
         "solidity"
         "stylua"
+        "uv"
         "yarn"
         "z"
     )
