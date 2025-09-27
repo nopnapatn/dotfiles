@@ -127,6 +127,7 @@ install_casks() {
         "android-studio"
         "iterm2"
         "alfred"
+        "zen"
         "cursor"
         "tradingview"
         "warp"
@@ -135,6 +136,7 @@ install_casks() {
         "regtangle"
         "min"
         "docker"
+        "fork"
         "jordanbaird-ice"
         "telegram"
         "keyboardcleantool"
@@ -206,7 +208,13 @@ create_symlinks() {
     
     echo "Linking .config directories..."
     
-    CONFIG_DIRS=("btop" "ghostty" "nvim" "skhd" "tmux" "yabai")
+    CONFIG_DIRS=(
+        "btop"
+        "nvim"
+        "skhd"
+        "tmux"
+        "yabai"
+    )
     
     for dir in "${CONFIG_DIRS[@]}"; do
         source_dir="$DOTFILES_DIR/.config/$dir"
@@ -251,7 +259,10 @@ create_symlinks() {
     
     echo "Linking other dotfiles..."
     
-    ROOT_FILES=(".zshrc" ".gitconfig")
+    ROOT_FILES=(
+        ".zshrc"
+        ".gitconfig"
+    )
     
     for file in "${ROOT_FILES[@]}"; do
         source_file="$DOTFILES_DIR/$file"

@@ -118,7 +118,6 @@
       "when": ["editorTextFocus"]
     }
   ],
-  "console-ninja.featureSet": "Community",
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
