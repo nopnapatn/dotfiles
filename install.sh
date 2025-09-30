@@ -142,7 +142,6 @@ install_casks() {
         "flutter"
         "fork"
         "jordanbaird-ice"
-        "gather"
         "telegram"
         "keyboardcleantool"
         "numi"
