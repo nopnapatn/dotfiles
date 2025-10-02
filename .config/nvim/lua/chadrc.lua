@@ -8,7 +8,7 @@ local M = {}
 M.base46 = {
 	theme = "monochrome",
   theme_toggle = {"monochrome", "onedark"},
-  transparency = false
+  transparency = true
 }
 
 M.ui = {
