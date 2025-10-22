@@ -96,6 +96,7 @@ install_packages() {
         "zsh-syntax-highlighting"
         "docker"
         "fvm"
+        "gh"
         "go"
         "gitflow"
         "goose"
