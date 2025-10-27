@@ -145,7 +145,6 @@ install_casks() {
         "telegram"
         "keyboardcleantool"
         "numi"
-        "cleanmymac"
         "slack"
         "google-chrome"
         "notion"
