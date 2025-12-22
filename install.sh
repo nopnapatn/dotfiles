@@ -149,6 +149,7 @@ install_casks() {
         "google-chrome"
         "notion"
         "notion-calendar"
+        "notion-mail"
         "postman"
         "brave-browser"
         "arc"
