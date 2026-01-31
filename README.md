@@ -46,7 +46,7 @@ Or manually:
 The installation script performs the following actions:
 
 1. Installs Homebrew (if not already installed)
-2. Installs necessary packages via Homebrew
+2. Installs packages and casks from `Brewfile` via `brew bundle`
 3. Creates required directories in `~/.config/`
 4. Creates symbolic links from the dotfiles to their appropriate locations
 5. Sets up and starts services (yabai and skhd)
@@ -76,6 +76,16 @@ The installation script performs the following actions:
 | `Prefix + h/j/k/l` | Navigate panes            |
 | `Prefix + r`       | Reload tmux config        |
 | `Alt + Arrow keys` | Navigate panes            |
+
+## Maintaining the Brewfile
+
+All Homebrew packages and casks are listed in `Brewfile` for easy maintenance.
+
+- **Install everything:** `brew bundle --file=Brewfile` (or run `./install.sh`)
+- **Add/remove packages:** Edit `Brewfile` (use `brew` for formulae, `cask` for GUI apps)
+- **Sync Brewfile with current system:**  
+  `brew bundle dump --file=Brewfile --force`  
+  This overwrites `Brewfile` with what’s currently installed.
 
 ## Updating
 

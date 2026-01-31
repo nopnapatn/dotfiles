@@ -74,94 +74,20 @@ install_homebrew() {
     fi
 }
 
-install_packages() {
-    print_header "Installing packages with Homebrew"
+install_brew_bundle() {
+    print_header "Installing packages with Homebrew (Brewfile)"
     
-    PACKAGES=(
-        "git"
-        "neovim"
-        "neofetch"
-        "neovide"
-        "tmux"
-        "btop"
-        "koekeishiya/formulae/yabai"
-        "koekeishiya/formulae/skhd"
-        "ripgrep"
-        "fd"
-        "fzf"
-        "bat"
-        "exa"
-        "jq"
-        "zsh-autosuggestions"
-        "zsh-syntax-highlighting"
-        "docker"
-        "fvm"
-        "gh"
-        "go"
-        "gitflow"
-        "goose"
-        "mockery"
-        "node"
-        "nvm"
-        "pnpm"
-        "pyenv"
-        "solidity"
-        "stylua"
-        "uv"
-        "yarn"
-        "z"
-    )
+    DOTFILES_DIR="${DOTFILES_DIR:-$HOME/Developer/dotfiles}"
+    BREWFILE="$DOTFILES_DIR/Brewfile"
     
-    echo "Installing CLI tools..."
-    for package in "${PACKAGES[@]}"; do
-        echo "Installing $package..."
-        brew install "$package" || print_warning "Failed to install $package, continuing..."
-    done
+    if [ ! -f "$BREWFILE" ]; then
+        print_error "Brewfile not found at $BREWFILE"
+        return 1
+    fi
     
-    print_success "Packages installed successfully!"
-}
-
-install_casks() {
-    print_header "Installing casks with Homebrew"
-
-    CASKS=(
-        "visual-studio-code"
-        "android-studio"
-        "iterm2"
-        "alfred"
-        "zen"
-        "cursor"
-        "tradingview"
-        "warp"
-        "obsidian"
-        "figma"
-        "minecraft"
-        "discord"
-        "regtangle"
-        "min"
-        "docker"
-        "flutter"
-        "fork"
-        "telegram"
-        "keyboardcleantool"
-        "numi"
-        "slack"
-        "google-chrome"
-        "notion"
-        "notion-calendar"
-        "notion-mail"
-        "postman"
-        "brave-browser"
-        "arc"
-    )
-
-    echo "Installing Casks tools..."
-    for cask in "${CASKS[@]}"; do
-        echo "Installing $cask..."
-        brew install --cask "$cask" || print_warning "Failed to install $cask, continuing..."
-    done
-    
-    print_success "Casks installed successfully!"
+    echo "Running brew bundle from $BREWFILE..."
+    brew bundle --file="$BREWFILE" || print_warning "Some packages may have failed to install."
+    print_success "Brew bundle completed!"
 }
 
 create_directories() {
@@ -295,8 +221,7 @@ main() {
     clone_dotfiles
 
     install_homebrew
-    install_packages
-    install_casks
+    install_brew_bundle
     
     create_directories
     create_symlinks
