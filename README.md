@@ -34,11 +34,11 @@ Or manually:
    git clone https://github.com/nopnapatn/dotfiles.git ~/.dotfiles
    ```
 
-2. Run the installation script:
+2. Run the installation (using Make):
+
    ```bash
    cd ~/.dotfiles
-   chmod +x install.sh
-   ./install.sh
+   make install
    ```
 
 ## What the Installation Script Does
@@ -81,7 +81,7 @@ The installation script performs the following actions:
 
 All Homebrew packages and casks are listed in `Brewfile` for easy maintenance.
 
-- **Install everything:** `brew bundle --file=Brewfile` (or run `./install.sh`)
+- **Install everything:** `make` or `./install.sh`
 - **Add/remove packages:** Edit `Brewfile` (use `brew` for formulae, `cask` for GUI apps)
 - **Sync Brewfile with current system:**  
   `brew bundle dump --file=Brewfile --force`  
@@ -94,7 +94,7 @@ To update your dotfiles:
 ```bash
 cd ~/.dotfiles
 git pull
-./install.sh
+make
 ```
 
 The installation script is idempotent, so running it again will only update what's necessary.

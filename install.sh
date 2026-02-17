@@ -96,7 +96,6 @@ create_directories() {
     CONFIG_DIR="$HOME/.config"
     SCRIPTS_DIR="$HOME/.scripts"
     
-    # Create .config directory if it doesn't exist
     if [ ! -d "$CONFIG_DIR" ]; then
         mkdir -p "$CONFIG_DIR"
         print_success "Created $CONFIG_DIR directory"
@@ -104,7 +103,6 @@ create_directories() {
         print_success "$CONFIG_DIR directory already exists"
     fi
     
-    # Create .scripts directory if it doesn't exist
     if [ ! -d "$SCRIPTS_DIR" ]; then
         mkdir -p "$SCRIPTS_DIR"
         print_success "Created $SCRIPTS_DIR directory"
@@ -112,7 +110,6 @@ create_directories() {
         print_success "$SCRIPTS_DIR directory already exists"
     fi
     
-    # Create config subdirectories
     for dir in nvim tmux btop skhd yabai; do
         if [ ! -d "$CONFIG_DIR/$dir" ]; then
             mkdir -p "$CONFIG_DIR/$dir"
@@ -163,11 +160,35 @@ create_symlinks() {
         fi
     done
     
+    CURSOR_USER_DIR="$HOME/Library/Application Support/Cursor/User"
+    CURSOR_DOTFILES="$DOTFILES_DIR/.config/cursor"
+    if [ -d "$CURSOR_DOTFILES" ]; then
+        echo "Linking Cursor User config..."
+        mkdir -p "$CURSOR_USER_DIR"
+        for file in settings.json keybindings.json; do
+            source_file="$CURSOR_DOTFILES/$file"
+            target_file="$CURSOR_USER_DIR/$file"
+            if [ -f "$source_file" ]; then
+                if [ -e "$target_file" ] && [ ! -L "$target_file" ]; then
+                    echo "Backing up existing $target_file to ${target_file}.backup..."
+                    mv "$target_file" "${target_file}.backup"
+                elif [ -L "$target_file" ]; then
+                    rm "$target_file"
+                fi
+                echo "Linking $source_file to $target_file..."
+                ln -sf "$source_file" "$target_file"
+                print_success "Linked Cursor $file"
+            else
+                print_warning "Source file $source_file not found, skipping..."
+            fi
+        done
+    else
+        print_warning "Cursor config directory $CURSOR_DOTFILES not found, skipping..."
+    fi
+    
     echo "Linking scripts directory..."
     
-    # Link the .scripts directory from dotfiles
     if [ -d "$DOTFILES_DIR/.scripts" ]; then
-        # Remove existing .scripts directory if it's not a symlink
         if [ -d "$SCRIPTS_DIR" ] && [ ! -L "$SCRIPTS_DIR" ]; then
             echo "Backing up existing $SCRIPTS_DIR to ${SCRIPTS_DIR}.backup..."
             mv "$SCRIPTS_DIR" "${SCRIPTS_DIR}.backup"
@@ -179,7 +200,6 @@ create_symlinks() {
         ln -sf "$DOTFILES_DIR/.scripts" "$SCRIPTS_DIR"
         print_success "Linked .scripts directory"
         
-        # Make all scripts executable
         find "$SCRIPTS_DIR" -type f -name "*.sh" -exec chmod +x {} \;
         print_success "Made all scripts executable"
     else

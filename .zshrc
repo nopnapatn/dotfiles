@@ -138,3 +138,6 @@ source ~/.scripts/mode.sh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+
+# Added by Antigravity
+export PATH="/Users/nopnapatn/.antigravity/antigravity/bin:$PATH"
