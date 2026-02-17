@@ -50,32 +50,7 @@ The installation script performs the following actions:
 3. Creates required directories in `~/.config/`
 4. Creates symbolic links from the dotfiles to their appropriate locations
 5. Sets up and starts services (yabai and skhd)
-
-## Key Bindings
-
-### Yabai + Skhd
-
-| Keybinding              | Action                          |
-| ----------------------- | ------------------------------- |
-| `alt - return`          | Open terminal                   |
-| `alt - h/j/k/l`         | Focus window left/down/up/right |
-| `shift + alt - h/j/k/l` | Move window left/down/up/right  |
-| `shift + alt - 1-9`     | Move window to workspace 1-9    |
-| `ctrl + alt - h/j/k/l`  | Resize window                   |
-| `shift + alt - space`   | Toggle window float             |
-| `alt - f`               | Toggle window fullscreen        |
-| `shift + alt - r`       | Restart yabai                   |
-
-### Tmux
-
-| Keybinding         | Action                    |
-| ------------------ | ------------------------- |
-| `C-Space`          | Prefix key                |
-| `Prefix + \|`      | Split window horizontally |
-| `Prefix + -`       | Split window vertically   |
-| `Prefix + h/j/k/l` | Navigate panes            |
-| `Prefix + r`       | Reload tmux config        |
-| `Alt + Arrow keys` | Navigate panes            |
+6.
 
 ## Maintaining the Brewfile
 
@@ -93,8 +68,7 @@ To update your dotfiles:
 
 ```bash
 cd ~/.dotfiles
-git pull
-make
+make update
 ```
 
 The installation script is idempotent, so running it again will only update what's necessary.
