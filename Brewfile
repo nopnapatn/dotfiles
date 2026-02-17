@@ -6,6 +6,7 @@ tap "koekeishiya/formulae"
 
 # CLI tools
 brew "git"
+brew "lazygit"
 brew "neovim"
 brew "neofetch"
 brew "neovide"
