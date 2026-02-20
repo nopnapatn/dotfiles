@@ -1,0 +1,109 @@
+# Yazi theme overrides — Solarized Dark.
+# Matches btop (solarized_dark) and tmux (Solarized 256) in this dotfiles repo.
+# Only overrides are set; defaults are merged from theme-dark.toml.
+# Docs: https://yazi-rs.github.io/docs/configuration/theme
+
+"$schema" = "https://yazi-rs.github.io/schemas/theme.json"
+
+# Solarized Dark palette (hex)
+# base03 #002b36  base02 #073642  base01 #586e75  base00 #657b83
+# base0  #839496  yellow #b58900  orange #cb4b16  blue   #268bd2
+# cyan   #2aa198  green  #859900
+
+[app]
+# No bg = transparent (terminal background shows through)
+overall = {}
+
+[mgr]
+cwd = { fg = "#2aa198" }
+find_keyword = { fg = "#b58900", bold = true, underline = true }
+find_position = { fg = "#6c71c4", bold = true }
+symlink_target = { fg = "#839496", italic = true }
+marker_copied = { fg = "#859900", bg = "#859900" }
+marker_cut = { fg = "#dc322f", bg = "#dc322f" }
+marker_marked = { fg = "#2aa198", bg = "#2aa198" }
+marker_selected = { fg = "#b58900", bg = "#b58900" }
+count_copied = { fg = "#002b36", bg = "#859900" }
+count_cut = { fg = "#fdf6e3", bg = "#dc322f" }
+count_selected = { fg = "#002b36", bg = "#b58900" }
+border_style = { fg = "#586e75" }
+
+[tabs]
+active = { fg = "#002b36", bg = "#268bd2", bold = true }
+inactive = { fg = "#839496", bg = "#073642" }
+
+[mode]
+normal_main = { fg = "#002b36", bg = "#268bd2", bold = true }
+normal_alt = { fg = "#268bd2", bg = "#073642" }
+select_main = { fg = "#fdf6e3", bg = "#cb4b16", bold = true }
+select_alt = { fg = "#cb4b16", bg = "#073642" }
+unset_main = { fg = "#fdf6e3", bg = "#dc322f", bold = true }
+unset_alt = { fg = "#dc322f", bg = "#073642" }
+
+[indicator]
+parent = { fg = "#586e75", bg = "#073642" }
+current = { fg = "#268bd2", bg = "#073642", bold = true }
+preview = { fg = "#2aa198", underline = true }
+
+[status]
+overall = { fg = "#839496" }
+perm_type = { fg = "#859900" }
+perm_read = { fg = "#b58900" }
+perm_write = { fg = "#cb4b16" }
+perm_exec = { fg = "#2aa198" }
+perm_sep = { fg = "#586e75" }
+progress_label = { fg = "#839496", bold = true }
+progress_normal = { fg = "#859900", bg = "#073642" }
+progress_error = { fg = "#b58900", bg = "#dc322f" }
+
+[which]
+mask = { bg = "#073642" }
+cand = { fg = "#2aa198" }
+rest = { fg = "#586e75" }
+desc = { fg = "#6c71c4" }
+separator_style = { fg = "#586e75" }
+
+[confirm]
+border = { fg = "#268bd2" }
+title = { fg = "#268bd2" }
+btn_yes = { fg = "#002b36", bg = "#859900" }
+btn_no = { fg = "#839496", bg = "#073642" }
+
+[spot]
+border = { fg = "#268bd2" }
+title = { fg = "#268bd2" }
+tbl_col = { fg = "#268bd2" }
+tbl_cell = { fg = "#b58900", bg = "#073642", bold = true }
+
+[notify]
+title_info = { fg = "#859900" }
+title_warn = { fg = "#b58900" }
+title_error = { fg = "#dc322f" }
+
+[pick]
+border = { fg = "#268bd2" }
+active = { fg = "#6c71c4", bold = true }
+inactive = { fg = "#839496" }
+
+[input]
+border = { fg = "#268bd2" }
+title = { fg = "#839496" }
+value = { fg = "#839496" }
+selected = { fg = "#002b36", bg = "#268bd2" }
+
+[cmp]
+border = { fg = "#268bd2" }
+active = { fg = "#268bd2", bold = true }
+inactive = { fg = "#839496" }
+
+[filetype]
+rules = [
+  { url = "*/", fg = "#268bd2" },
+  { mime = "image/*", fg = "#b58900" },
+  { mime = "video/*", fg = "#6c71c4" },
+  { mime = "audio/*", fg = "#d33682" },
+  { mime = "inode/empty", fg = "#2aa198" },
+  { url = "*", is = "orphan", fg = "#dc322f" },
+  { url = "*", is = "exec", fg = "#859900" },
+  { url = "*", fg = "#839496" },
+]

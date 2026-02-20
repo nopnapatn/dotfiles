@@ -7,8 +7,13 @@ My personal dotfiles for MacOS setup with a simple installation script that make
 This dotfiles repository contains configuration for:
 
 - **Neovim** - Text editor with modern plugins and LSP support
+- **Cursor** - Editor settings and keybindings (synced to Application Support on macOS)
 - **Tmux** - Terminal multiplexer with sensible keybindings
 - **Btop** - Resource monitor with beautiful interface
+- **Cava** - Audio spectrum visualizer (themes and shaders)
+- **Neofetch** - System information display
+- **Yazi** - Fast terminal file manager
+- **Superfile** - TUI file manager (synced to Application Support on macOS)
 - **Yabai** - Tiling window manager for MacOS
 - **Skhd** - Simple hotkey daemon for MacOS
 - **Zsh** - Shell configuration with useful aliases and settings
@@ -31,13 +36,13 @@ Or manually:
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/nopnapatn/dotfiles.git ~/.dotfiles
+   git clone https://github.com/nopnapatn/dotfiles.git ~/Developer/dotfiles
    ```
 
 2. Run the installation (using Make):
 
    ```bash
-   cd ~/.dotfiles
+   cd ~/Developer/dotfiles
    make install
    ```
 
@@ -47,10 +52,9 @@ The installation script performs the following actions:
 
 1. Installs Homebrew (if not already installed)
 2. Installs packages and casks from `Brewfile` via `brew bundle`
-3. Creates required directories in `~/.config/`
-4. Creates symbolic links from the dotfiles to their appropriate locations
+3. Creates symbolic links from `~/.config/` (btop, cava, neofetch, nvim, skhd, superfile, tmux, yabai, yazi), Cursor User config, `~/.scripts`, and root dotfiles (e.g. `.zshrc`, `.gitconfig`)
+4. On macOS, links Superfile and Cursor config to their Application Support paths
 5. Sets up and starts services (yabai and skhd)
-6.
 
 ## Maintaining the Brewfile
 
@@ -67,7 +71,7 @@ All Homebrew packages and casks are listed in `Brewfile` for easy maintenance.
 To update your dotfiles:
 
 ```bash
-cd ~/.dotfiles
+cd ~/Developer/dotfiles
 make update
 ```
 

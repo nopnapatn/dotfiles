@@ -36,7 +36,7 @@ clone_dotfiles() {
     
     if [ -d "$DOTFILES_DIR" ]; then
         print_warning "Dotfiles directory already exists at $DOTFILES_DIR"
-        read -p "Do you want to update the existing repository? (y/n) " -n 1 -r
+        read -p "Do you want to update the existing repository? (y/N) " -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             echo "Updating dotfiles repository..."
@@ -110,7 +110,7 @@ create_directories() {
         print_success "$SCRIPTS_DIR directory already exists"
     fi
     
-    for dir in nvim tmux btop skhd yabai; do
+    for dir in btop cava neofetch nvim skhd superfile tmux yabai; do
         if [ ! -d "$CONFIG_DIR/$dir" ]; then
             mkdir -p "$CONFIG_DIR/$dir"
             print_success "Created $CONFIG_DIR/$dir directory"
@@ -136,10 +136,14 @@ create_symlinks() {
     
     CONFIG_DIRS=(
         "btop"
+        "cava"
+        "neofetch"
         "nvim"
         "skhd"
+        "superfile"
         "tmux"
         "yabai"
+        "yazi"
     )
     
     for dir in "${CONFIG_DIRS[@]}"; do
@@ -155,11 +159,25 @@ create_symlinks() {
             echo "Linking $source_dir to $target_dir..."
             ln -sf "$source_dir" "$target_dir"
             print_success "Linked $dir configuration"
-        else
+else
             print_warning "Source directory/file $source_dir not found, skipping..."
         fi
     done
-    
+
+    # macOS: superfile uses Application Support, not ~/.config
+    if [[ "$(uname -s)" == "Darwin" ]] && [ -d "$DOTFILES_DIR/.config/superfile" ]; then
+        SPF_APP_SUPPORT="$HOME/Library/Application Support/superfile"
+        if [ -e "$SPF_APP_SUPPORT" ] && [ ! -L "$SPF_APP_SUPPORT" ]; then
+            echo "Backing up existing $SPF_APP_SUPPORT to ${SPF_APP_SUPPORT}.backup..."
+            mv "$SPF_APP_SUPPORT" "${SPF_APP_SUPPORT}.backup"
+        elif [ -L "$SPF_APP_SUPPORT" ]; then
+            rm "$SPF_APP_SUPPORT"
+        fi
+        echo "Linking superfile config to Application Support..."
+        ln -sf "$DOTFILES_DIR/.config/superfile" "$SPF_APP_SUPPORT"
+        print_success "Linked superfile configuration (macOS)"
+    fi
+
     CURSOR_USER_DIR="$HOME/Library/Application Support/Cursor/User"
     CURSOR_DOTFILES="$DOTFILES_DIR/.config/cursor"
     if [ -d "$CURSOR_DOTFILES" ]; then

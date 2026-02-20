@@ -1,0 +1,35 @@
+# Yazi general configuration.
+# Override only what you need; defaults are merged from the built-in preset.
+# Docs: https://yazi-rs.github.io/docs/configuration/overview
+
+"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+[mgr]
+# Show hidden files (dotfiles).
+show_hidden = true
+# Show symlink targets after filename.
+show_symlink = true
+# Layout: [sidebar, file list, preview] width ratios.
+ratio = [1, 4, 3]
+# Keep this many lines above/below cursor when scrolling.
+scrolloff = 5
+# Sort: natural (1 < 2 < 10), directories first.
+sort_by = "natural"
+sort_dir_first = true
+# Line mode: show size in file list.
+linemode = "size"
+
+[preview]
+# Preview pane limits.
+max_width = 600
+max_height = 900
+tab_size = 2
+
+[opener]
+# Editor: use $EDITOR (e.g. nvim); macOS open/reveal in default preset.
+edit = [
+  { run = "${EDITOR:-nvim} %s", desc = "$EDITOR", for = "unix", block = true },
+]
+
+[input]
+cursor_blink = false
