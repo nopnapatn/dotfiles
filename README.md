@@ -6,17 +6,31 @@ My personal dotfiles for MacOS setup with a simple installation script that make
 
 This dotfiles repository contains configuration for:
 
-- **Neovim** - Text editor with modern plugins and LSP support
-- **Cursor** - Editor settings and keybindings (synced to Application Support on macOS)
-- **Tmux** - Terminal multiplexer with sensible keybindings
-- **Btop** - Resource monitor with beautiful interface
-- **Cava** - Audio spectrum visualizer (themes and shaders)
-- **Neofetch** - System information display
-- **Yazi** - Fast terminal file manager
-- **Superfile** - TUI file manager (synced to Application Support on macOS)
-- **Yabai** - Tiling window manager for MacOS
-- **Skhd** - Simple hotkey daemon for MacOS
-- **Zsh** - Shell configuration with useful aliases and settings
+| Tool | Description |
+|------|-------------|
+| **Btop** | Resource monitor with beautiful interface |
+| **Cava** | Audio spectrum visualizer (themes and shaders) |
+| **Cursor** | Editor settings and keybindings (synced to Application Support on macOS) |
+| **Neofetch** | System information display |
+| **Neovim** | Text editor with modern plugins and LSP support |
+| **Skhd** | Simple hotkey daemon for MacOS |
+| **Superfile** | TUI file manager (synced to Application Support on macOS) |
+| **Tmux** | Terminal multiplexer with sensible keybindings |
+| **Yabai** | Tiling window manager for MacOS |
+| **Yazi** | Fast terminal file manager |
+| **Zsh** | Shell configuration with useful aliases and settings |
+
+## CLI & AI tools
+
+These dotfiles assume or work alongside the following AI/CLI tools:
+
+| Tool | Description |
+|------|-------------|
+| **Claude** | Anthropic’s AI assistant (Claude CLI / API) for chat and coding help. |
+| **Codex** | Codex CLI/skills (e.g. `$CODEX_HOME`) for workflows and integrations. |
+| **Cursor** | AI-powered editor; config and keybindings are synced from this repo. |
+| **Gemini** | Google’s Gemini API/CLI for AI chat and code assistance. |
+| **Ollama** | Run LLMs locally (Llama, Mistral, Codellama, etc.) from the terminal. |
 
 ## Prerequisites
 
