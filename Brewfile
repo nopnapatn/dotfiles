@@ -3,6 +3,7 @@
 # Dump current: brew bundle dump --file=Brewfile --force
 
 tap "koekeishiya/formulae"
+tap "FelixKratz/formulae"
 
 # CLI tools 
 brew "bat" 
@@ -26,8 +27,8 @@ brew "nvm"
 brew "ollama"
 brew "opencode"
 brew "pnpm"
-brew "pyenv"
 brew "ripgrep"
+brew "sketchybar"
 brew "skhd"
 brew "superfile"
 brew "stylua"

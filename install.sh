@@ -139,6 +139,7 @@ create_symlinks() {
         "cava"
         "neofetch"
         "nvim"
+        "sketchybar"
         "skhd"
         "superfile"
         "tmux"
