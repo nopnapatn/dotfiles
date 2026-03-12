@@ -222,6 +222,32 @@ install_powerlevel10k() {
     fi
 }
 
+install_zsh_plugins() {
+    print_header "Installing Zsh plugins (syntax-highlighting, autosuggestions)"
+    ZSH="${ZSH:-$HOME/.oh-my-zsh}"
+    ZSH_CUSTOM="${ZSH_CUSTOM:-$ZSH/custom}"
+    PLUGINS_DIR="$ZSH_CUSTOM/plugins"
+    if [ ! -d "$ZSH" ]; then
+        print_error "Oh My Zsh not found at $ZSH. Install Oh My Zsh first."
+        return 1
+    fi
+    mkdir -p "$PLUGINS_DIR"
+    for repo_name in "zsh-users/zsh-syntax-highlighting" "zsh-users/zsh-autosuggestions"; do
+        plugin_name="${repo_name##*/}"
+        plugin_dir="$PLUGINS_DIR/$plugin_name"
+        if [ -d "$plugin_dir" ]; then
+            print_success "$plugin_name is already installed"
+            continue
+        fi
+        echo "Cloning $plugin_name..."
+        if git clone --depth=1 "https://github.com/$repo_name.git" "$plugin_dir"; then
+            print_success "Installed $plugin_name"
+        else
+            print_warning "Failed to install $plugin_name"
+        fi
+    done
+}
+
 create_directories() {
     print_header "Creating necessary directories"
     
@@ -395,6 +421,7 @@ main() {
 
     install_oh_my_zsh
     install_powerlevel10k
+    install_zsh_plugins
 
     create_directories
     create_symlinks
