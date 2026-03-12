@@ -4,6 +4,7 @@
 
 tap "koekeishiya/formulae"
 tap "FelixKratz/formulae"
+tap "leoafarias/fvm"
 
 # CLI tools 
 brew "bat" 

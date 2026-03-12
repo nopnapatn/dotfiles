@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Resolve dotfiles directory: use directory containing this script when it's the repo (has Brewfile)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -f "$SCRIPT_DIR/Brewfile" ]; then
+    DOTFILES_DIR="$SCRIPT_DIR"
+else
+    DOTFILES_DIR=""
+fi
+export DOTFILES_DIR
+
 # Color definitions
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
@@ -30,47 +39,70 @@ command_exists() {
 
 clone_dotfiles() {
     print_header "Setting up dotfiles repository"
-    
     REPO_URL="https://github.com/nopnapatn/dotfiles.git"
-    DOTFILES_DIR="$HOME/Developer/dotfiles"
-    
-    if [ -d "$DOTFILES_DIR" ]; then
-        print_warning "Dotfiles directory already exists at $DOTFILES_DIR"
-        read -p "Do you want to update the existing repository? (y/N) " -n 1 -r
-        echo
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            echo "Updating dotfiles repository..."
-            cd "$DOTFILES_DIR" || exit
-            git pull
-            print_success "Dotfiles repository updated successfully!"
-        fi
-    else
-        echo "Cloning dotfiles repository from $REPO_URL to $DOTFILES_DIR..."
-        mkdir -p "$(dirname "$DOTFILES_DIR")"
-        git clone "$REPO_URL" "$DOTFILES_DIR"
-        print_success "Dotfiles repository cloned successfully!"
+    TARGET_DIR="${DOTFILES_DIR:-$HOME/Developer/dotfiles}"
+
+    # Already in repo (e.g. make install from cloned dotfiles): just update
+    if [ -n "$DOTFILES_DIR" ] && [ -d "$DOTFILES_DIR/.git" ]; then
+        print_success "Using dotfiles at $DOTFILES_DIR"
+        (cd "$DOTFILES_DIR" && git pull --ff-only) 2>/dev/null && print_success "Repository updated." || true
+        return 0
     fi
+
+    if [ -d "$TARGET_DIR" ]; then
+        if [ -t 0 ]; then
+            print_warning "Dotfiles directory already exists at $TARGET_DIR"
+            read -p "Update existing repository? (y/N) " -n 1 -r
+            echo
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                (cd "$TARGET_DIR" && git pull --ff-only) && print_success "Repository updated."
+            fi
+        else
+            (cd "$TARGET_DIR" && git pull --ff-only) 2>/dev/null && print_success "Repository updated." || true
+        fi
+        DOTFILES_DIR="$TARGET_DIR"
+        export DOTFILES_DIR
+        return 0
+    fi
+
+    echo "Cloning dotfiles from $REPO_URL to $TARGET_DIR..."
+    mkdir -p "$(dirname "$TARGET_DIR")"
+    git clone "$REPO_URL" "$TARGET_DIR"
+    DOTFILES_DIR="$TARGET_DIR"
+    export DOTFILES_DIR
+    print_success "Dotfiles repository cloned successfully!"
 }
 
 install_homebrew() {
     print_header "Checking for Homebrew"
+    # Add existing Homebrew to PATH first (e.g. when run via make without .zshrc)
+    ensure_brew_in_path 2>/dev/null || true
     if command_exists brew; then
         print_success "Homebrew is already installed."
         brew update
         print_success "Homebrew updated."
-    else
-        echo "Installing Homebrew..."
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        
-        if [[ $(uname -m) == "arm64" ]]; then
+        return 0
+    fi
+    echo "Installing Homebrew..."
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+        if [[ -x /opt/homebrew/bin/brew ]]; then
             echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zshrc"
             eval "$(/opt/homebrew/bin/brew shellenv)"
-        else
+        elif [[ -x /usr/local/bin/brew ]]; then
             echo 'eval "$(/usr/local/bin/brew shellenv)"' >> "$HOME/.zshrc"
             eval "$(/usr/local/bin/brew shellenv)"
         fi
-        
+    else
+        # Linux
+        [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        [[ -x "$HOME/.linuxbrew/bin/brew" ]] && eval "$($HOME/.linuxbrew/bin/brew shellenv)"
+    fi
+    if command_exists brew; then
         print_success "Homebrew installed successfully!"
+    else
+        print_error "Homebrew install may have completed but brew is not in PATH. Restart the terminal and run: make install"
+        return 1
     fi
 }
 
@@ -84,6 +116,12 @@ ensure_brew_in_path() {
             eval "$(/opt/homebrew/bin/brew shellenv)"
         elif [[ -x /usr/local/bin/brew ]]; then
             eval "$(/usr/local/bin/brew shellenv)"
+        fi
+    else
+        if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        elif [[ -x "$HOME/.linuxbrew/bin/brew" ]]; then
+            eval "$($HOME/.linuxbrew/bin/brew shellenv)"
         fi
     fi
     if ! command_exists brew; then
@@ -99,6 +137,7 @@ install_brew_bundle() {
     
     DOTFILES_DIR="${DOTFILES_DIR:-$HOME/Developer/dotfiles}"
     BREWFILE="$DOTFILES_DIR/Brewfile"
+    BREWFILE="$(cd "$(dirname "$BREWFILE")" && pwd)/$(basename "$BREWFILE")"
     
     if [ ! -f "$BREWFILE" ]; then
         print_error "Brewfile not found at $BREWFILE"
@@ -106,11 +145,10 @@ install_brew_bundle() {
     fi
     
     echo "Running brew bundle from $BREWFILE..."
-    # Explicit 'install' subcommand; ensure --file uses absolute path for formulae and casks
-    if brew bundle install --file="$BREWFILE"; then
+    if brew bundle install --file="$BREWFILE" --no-upgrade; then
         print_success "Brew bundle completed!"
     else
-        print_warning "Some formulae or casks may have failed. You can run: brew bundle install --file=$BREWFILE"
+        print_warning "Some formulae or casks may have failed. Re-run: brew bundle install --file=$BREWFILE"
     fi
 }
 
@@ -189,8 +227,7 @@ create_directories() {
 
 create_symlinks() {
     print_header "Creating symbolic links"
-    
-    DOTFILES_DIR="$HOME/Developer/dotfiles"
+    DOTFILES_DIR="${DOTFILES_DIR:-$HOME/Developer/dotfiles}"
     CONFIG_DIR="$HOME/.config"
     SCRIPTS_DIR="$HOME/.scripts"
     
