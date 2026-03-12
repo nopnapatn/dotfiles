@@ -74,8 +74,28 @@ install_homebrew() {
     fi
 }
 
+ensure_brew_in_path() {
+    # Ensure Homebrew is on PATH (needed when script runs in a context where .zshrc isn't loaded)
+    if command_exists brew; then
+        return 0
+    fi
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+        if [[ -x /opt/homebrew/bin/brew ]]; then
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+        elif [[ -x /usr/local/bin/brew ]]; then
+            eval "$(/usr/local/bin/brew shellenv)"
+        fi
+    fi
+    if ! command_exists brew; then
+        print_error "Homebrew is not available. Please install it first or restart your terminal."
+        return 1
+    fi
+}
+
 install_brew_bundle() {
     print_header "Installing packages with Homebrew (Brewfile)"
+    
+    ensure_brew_in_path || return 1
     
     DOTFILES_DIR="${DOTFILES_DIR:-$HOME/Developer/dotfiles}"
     BREWFILE="$DOTFILES_DIR/Brewfile"
@@ -86,8 +106,55 @@ install_brew_bundle() {
     fi
     
     echo "Running brew bundle from $BREWFILE..."
-    brew bundle --file="$BREWFILE" || print_warning "Some packages may have failed to install."
-    print_success "Brew bundle completed!"
+    # Explicit 'install' subcommand; ensure --file uses absolute path for formulae and casks
+    if brew bundle install --file="$BREWFILE"; then
+        print_success "Brew bundle completed!"
+    else
+        print_warning "Some formulae or casks may have failed. You can run: brew bundle install --file=$BREWFILE"
+    fi
+}
+
+install_oh_my_zsh() {
+    print_header "Installing Oh My Zsh"
+    ZSH="${ZSH:-$HOME/.oh-my-zsh}"
+    if [ -d "$ZSH" ]; then
+        print_success "Oh My Zsh is already installed at $ZSH"
+        return 0
+    fi
+    echo "Installing Oh My Zsh..."
+    # KEEP_ZSHRC=yes: don't overwrite .zshrc (we symlink it from dotfiles later)
+    # RUNZSH=no: don't start zsh at the end; CHSH=no: don't change default shell (optional)
+    KEEP_ZSHRC=yes RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
+    if [ -d "$ZSH" ]; then
+        print_success "Oh My Zsh installed successfully!"
+    else
+        print_error "Oh My Zsh installation failed."
+        return 1
+    fi
+}
+
+install_powerlevel10k() {
+    print_header "Installing Powerlevel10k theme"
+    ZSH="${ZSH:-$HOME/.oh-my-zsh}"
+    ZSH_CUSTOM="${ZSH_CUSTOM:-$ZSH/custom}"
+    P10K_DIR="$ZSH_CUSTOM/themes/powerlevel10k"
+    if [ -d "$P10K_DIR" ]; then
+        print_success "Powerlevel10k is already installed at $P10K_DIR"
+        return 0
+    fi
+    if [ ! -d "$ZSH" ]; then
+        print_error "Oh My Zsh not found at $ZSH. Install Oh My Zsh first."
+        return 1
+    fi
+    echo "Cloning Powerlevel10k into $P10K_DIR..."
+    mkdir -p "$ZSH_CUSTOM/themes"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$P10K_DIR"
+    if [ -d "$P10K_DIR" ]; then
+        print_success "Powerlevel10k installed successfully!"
+    else
+        print_error "Powerlevel10k installation failed."
+        return 1
+    fi
 }
 
 create_directories() {
@@ -160,7 +227,7 @@ create_symlinks() {
             echo "Linking $source_dir to $target_dir..."
             ln -sf "$source_dir" "$target_dir"
             print_success "Linked $dir configuration"
-else
+        else
             print_warning "Source directory/file $source_dir not found, skipping..."
         fi
     done
@@ -261,7 +328,10 @@ main() {
 
     install_homebrew
     install_brew_bundle
-    
+
+    install_oh_my_zsh
+    install_powerlevel10k
+
     create_directories
     create_symlinks
     
