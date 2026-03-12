@@ -37,6 +37,30 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
+# Spinner PID for cleanup
+_SPINNER_PID=""
+
+spinner_start() {
+    local msg="${1:-Loading...}"
+    (
+        local chars='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+        local i=0
+        while true; do
+            printf '\r  %s %s  ' "$msg" "${chars:i++%${#chars}:1}" >&2
+            sleep 0.1
+        done
+    ) &
+    _SPINNER_PID=$!
+}
+
+spinner_stop() {
+    if [ -n "$_SPINNER_PID" ] && kill "$_SPINNER_PID" 2>/dev/null; then
+        wait "$_SPINNER_PID" 2>/dev/null
+    fi
+    _SPINNER_PID=""
+    printf '\r\033[K' >&2
+}
+
 clone_dotfiles() {
     print_header "Setting up dotfiles repository"
     REPO_URL="https://github.com/nopnapatn/dotfiles.git"
@@ -145,9 +169,12 @@ install_brew_bundle() {
     fi
     
     echo "Running brew bundle from $BREWFILE..."
+    spinner_start "Installing packages"
     if brew bundle install --file="$BREWFILE" --no-upgrade; then
+        spinner_stop
         print_success "Brew bundle completed!"
     else
+        spinner_stop
         print_warning "Some formulae or casks may have failed. Re-run: brew bundle install --file=$BREWFILE"
     fi
 }
