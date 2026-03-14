@@ -410,6 +410,12 @@ create_symlinks() {
     done
 }
 
+setup_macos_defaults() {
+    [[ "$(uname -s)" != "Darwin" ]] && return 0
+    print_header "Setting macOS defaults"
+    defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+    print_success "ApplePressAndHoldEnabled set to false (key repeat for all keys)"
+}
 
 main() {
     print_header "Starting Dotfiles Setup"
@@ -425,6 +431,7 @@ main() {
 
     create_directories
     create_symlinks
+    setup_macos_defaults
     
     print_header "Setup Complete!"
     echo -e "${GREEN}Your dotfiles have been successfully set up!${NC}"
