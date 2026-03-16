@@ -387,6 +387,7 @@ create_symlinks() {
     ROOT_FILES=(
         ".zshrc"
         ".gitconfig"
+        ".czrc"
     )
     
     for file in "${ROOT_FILES[@]}"; do
