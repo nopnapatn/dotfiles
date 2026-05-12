@@ -1,3 +1,4 @@
 # Runtime state when config is symlinked (e.g. on macOS)
 superfile.log
 lastdir
+lastCheckVersion
