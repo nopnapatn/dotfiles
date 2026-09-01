@@ -61,7 +61,5 @@ cask "rectangle"
 cask "slack"
 cask "telegram"
 cask "tradingview"
-cask "warp"
-cask "webull"
 
 uv "specify-cli"
