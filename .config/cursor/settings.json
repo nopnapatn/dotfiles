@@ -1,4 +1,5 @@
 {
+  "json.schemaDownload.enable": true,
   "workbench.startupEditor": "none",
   "workbench.editor.labelFormat": "short",
   "workbench.layoutControl.enabled": true,
