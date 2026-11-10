@@ -1,0 +1,10 @@
+---
+description: TypeScript, React, Next.js and Node conventions
+globs: **/*.ts,**/*.tsx
+alwaysApply: false
+---
+
+- Strict TypeScript. No `any`; use `unknown` plus narrowing, or a real type. No `@ts-ignore` without a comment saying why.
+- Validate external input (requests, env, API responses, forms) with zod at the boundary and infer types from the schema.
+- React: function components, typed props. Use existing shadcn/ui components in `components/ui` before writing new ones. Style with Tailwind classes.
+- Tests use the project's runner (vitest where present).

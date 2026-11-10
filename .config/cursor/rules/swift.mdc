@@ -1,0 +1,8 @@
+---
+description: Swift and Xcode conventions
+globs: **/*.swift
+alwaysApply: false
+---
+
+- Follow the existing project structure and SwiftUI patterns in the codebase.
+- Don't hand-edit `.pbxproj` unless needed; when you must, keep the change minimal.

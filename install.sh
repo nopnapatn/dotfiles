@@ -358,6 +358,23 @@ create_symlinks() {
                 print_warning "Source file $source_file not found, skipping..."
             fi
         done
+
+        # Cursor agent config in ~/.cursor (MCP servers, global rules)
+        mkdir -p "$HOME/.cursor"
+        for item in mcp.json rules; do
+            source_item="$CURSOR_DOTFILES/$item"
+            target_item="$HOME/.cursor/$item"
+            if [ -e "$source_item" ]; then
+                if [ -e "$target_item" ] && [ ! -L "$target_item" ]; then
+                    echo "Backing up existing $target_item to ${target_item}.backup..."
+                    mv "$target_item" "${target_item}.backup"
+                elif [ -L "$target_item" ]; then
+                    rm "$target_item"
+                fi
+                ln -sf "$source_item" "$target_item"
+                print_success "Linked Cursor $item"
+            fi
+        done
     else
         print_warning "Cursor config directory $CURSOR_DOTFILES not found, skipping..."
     fi

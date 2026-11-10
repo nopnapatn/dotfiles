@@ -1,0 +1,9 @@
+---
+description: Go conventions
+globs: **/*.go
+alwaysApply: false
+---
+
+- Code must pass `gofmt` and `go vet`.
+- Return errors, wrap them with `fmt.Errorf("...: %w", err)`, and never ignore them silently.
+- Run `go test ./...` for packages you touched.

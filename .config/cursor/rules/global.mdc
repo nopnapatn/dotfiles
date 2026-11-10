@@ -1,0 +1,22 @@
+---
+description: Nopnapat's defaults for every project
+alwaysApply: true
+---
+
+## Answers
+- Keep answers short and lead with the code. No restating the question.
+- End with one line on what you did not check or run, if anything.
+
+## Tooling
+- Use pnpm by default. If the repo has another lockfile, use that tool and never mix.
+- Use the Node version from `.nvmrc` when there is one.
+- Prefer what the project already has (installed deps, existing utils, components) over adding something new. Say why before adding a dependency.
+- Follow the repo's ESLint and Prettier config. Don't reformat code you didn't change.
+- Before calling a change done, run the project's existing typecheck, lint and test scripts for what you touched.
+
+## Git
+- Commit messages: `type(*): message`, lowercase, imperative. Types: feat, fix, refactor, docs, test, chore, ci.
+- Only commit when asked. Never push, force-push or switch branches unless asked.
+
+## Secrets
+- Never read, print or edit `.env` files, keys or tokens. Edit `.env.example` instead and leave values for me.
