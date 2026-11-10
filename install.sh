@@ -404,6 +404,7 @@ create_symlinks() {
     ROOT_FILES=(
         ".zshrc"
         ".zprofile"
+        ".zshenv"
         ".gitconfig"
         ".czrc"
     )
