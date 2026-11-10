@@ -193,6 +193,8 @@
     "**/.forgejo/workflows/*.yml",
     "**/.forgejo/workflows/*.yaml"
   ],
-  "workbench.preferredLightColorTheme": "Solarized Light",
-  "workbench.productIconTheme": "el-vsc-v1-icons"
+  "workbench.productIconTheme": "el-vsc-v1-icons",
+  "workbench.colorTheme": "Solarized Light",
+  "cursor.general.glassShowWarningNotifications": true,
+  "workbench.preferredLightColorTheme": "Cursor Light Colorblind"
 }
