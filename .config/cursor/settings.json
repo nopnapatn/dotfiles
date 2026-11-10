@@ -3,8 +3,6 @@
   "workbench.startupEditor": "none",
   "workbench.editor.labelFormat": "short",
   "workbench.layoutControl.enabled": true,
-  "workbench.productIconTheme": "el-vsc-v1-icons",
-  "workbench.preferredLightColorTheme": "Solarized Light",
   "workbench.preferredDarkColorTheme": "paddy-dark",
   "workbench.iconTheme": null,
   "editor.fontFamily": "MesloLGS NF",
@@ -194,5 +192,7 @@
     "**/.gitea/workflows/*.yaml",
     "**/.forgejo/workflows/*.yml",
     "**/.forgejo/workflows/*.yaml"
-  ]
+  ],
+  "workbench.preferredLightColorTheme": "Solarized Light",
+  "workbench.productIconTheme": "el-vsc-v1-icons"
 }
